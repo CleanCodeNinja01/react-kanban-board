@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import type { Columns } from "./assets/App.types";
+import Column from "./Column";
 
 const initialData: Columns = {
   backlog: {
@@ -85,84 +86,16 @@ function App() {
           Add Task
         </button>
       </div>
-      <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", height: "100%" }}
+      >
         {Object.entries(columns).map(([columnId, column]) => (
-          <div
-            key={columnId}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              margin: "0 20px",
-            }}
-          >
-            <h2>{column.name}</h2>
-            <div
-              style={{
-                background: "#eceff1",
-                padding: 4,
-                width: 250,
-                minHeight: 500,
-                borderRadius: 5,
-              }}
-            >
-              {column.items.map((item) => (
-                <div
-                  key={item.id}
-                  style={{
-                    userSelect: "none",
-                    padding: 16,
-                    margin: "0 0 8px 0",
-                    minHeight: "50px",
-                    backgroundColor: "#f5f5f5",
-                    color: "#333",
-                    borderRadius: 4,
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
-                    display: "inline-flex",
-                  }}
-                >
-                  <input
-                    type="text"
-                    value={item.content}
-                    onChange={(e) =>
-                      editTask(columnId, item.id, e.target.value)
-                    }
-                    onBlur={(e) =>
-                      editTask(columnId, item.id, e.target.value)
-                    }
-                    style={{
-                      border: "none",
-                      background: "transparent",
-                      width: "100%",
-                      color: "#333",
-                      fontSize: "16px",
-                      textOverflow: "ellipsis"
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        e.preventDefault();
-                        editTask(columnId, item.id, e.currentTarget.value); // Save the updated content
-                        e.currentTarget.blur(); // Remove focus from the input field
-                      }
-                    }}
-                  />
-                  <button
-                    onClick={() => deleteTask(columnId, item.id)}
-                    style={{
-                      marginLeft: "10px",
-                      background: "red",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "4px",
-                      padding: "4px 8px",
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
+          <Column
+            columnId={columnId}
+            column={column}
+            editTask={editTask}
+            deleteTask={deleteTask}
+          />
         ))}
       </div>
     </div>

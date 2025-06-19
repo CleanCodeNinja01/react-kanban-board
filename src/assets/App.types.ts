@@ -1,13 +1,13 @@
 export type Card = {
-    id: string;
-    content: string;
-  };
-  
-export type Column = {
-    name: string;
-    items: Card[];
-  };
-  
+  id: string;
+  content: string;
+};
+
+export type ColumnType = {
+  name: string;
+  items: Card[];
+};
+
 export type Columns = {
-    [key: string]: Column;
-  };
+  [key: string]: ColumnType;
+};
