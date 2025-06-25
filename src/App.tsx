@@ -93,8 +93,8 @@ function App() {
           <Column
             columnId={columnId}
             column={column}
-            editTask={editTask}
-            deleteTask={deleteTask}
+            editTaskInEachCol={editTask}
+            deleteTaskInEachCol={deleteTask}
           />
         ))}
       </div>

@@ -4,11 +4,17 @@ import Task from "./Task";
 type ColumnProps = {
   columnId: string;
   column: ColumnType;
-  editTask: (columnId: string, taskId: string, newContent: string) => void;
-  deleteTask: (columnId: string, taskId: string) => void;
+  editTaskInEachCol: (columnId: string, taskId: string, newContent: string) => void;
+  deleteTaskInEachCol: (columnId: string, taskId: string) => void;
 };
 
-function Column({ columnId, column, editTask, deleteTask }: ColumnProps) {
+function Column({ columnId, column, editTaskInEachCol, deleteTaskInEachCol }: ColumnProps) {
+  const handleEdit = (taskId: string, newContent: string) => {
+    editTaskInEachCol(columnId, taskId, newContent)
+  }
+  const handleDelete = (taskId: string) => {
+    deleteTaskInEachCol(columnId, taskId)
+  }
   return (
     <div
       key={columnId}
@@ -32,8 +38,8 @@ function Column({ columnId, column, editTask, deleteTask }: ColumnProps) {
         {column.items.map((item) => (
             <Task
                 columnId={columnId}
-                editTask={editTask}
-                deleteTask={deleteTask}
+                editTaskInEachTask={handleEdit}
+                deleteTaskInEachTask={handleDelete}
                 task={item}
             />
         ))}

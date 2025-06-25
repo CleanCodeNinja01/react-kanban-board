@@ -4,11 +4,11 @@ import type { Card } from "./assets/App.types";
 type TaskProps = {
     columnId: string;
     task: Card;
-    editTask: (columnId: string, taskId: string, newContent: string) => void;
-    deleteTask: (columnId: string, taskId: string) => void;
+    editTaskInEachTask: (taskId: string, newContent: string) => void;
+    deleteTaskInEachTask: (taskId: string) => void;
 }
 
-function Task({columnId, editTask, deleteTask, task}: TaskProps) {
+function Task({editTaskInEachTask, deleteTaskInEachTask, task}: TaskProps) {
   return (
     <div
       key={task.id}
@@ -27,8 +27,8 @@ function Task({columnId, editTask, deleteTask, task}: TaskProps) {
       <input
         type="text"
         value={task.content}
-        onChange={(e) => editTask(columnId, task.id, e.target.value)}
-        onBlur={(e) => editTask(columnId, task.id, e.target.value)}
+        onChange={(e) => editTaskInEachTask(task.id, e.target.value)}
+        onBlur={(e) => editTaskInEachTask(task.id, e.target.value)}
         style={{
           border: "none",
           background: "transparent",
@@ -40,13 +40,15 @@ function Task({columnId, editTask, deleteTask, task}: TaskProps) {
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();
-            editTask(columnId, task.id, e.currentTarget.value); // Save the updated content
+            editTaskInEachTask(task.id, e.currentTarget.value); // Save the updated content
             e.currentTarget.blur(); // Remove focus from the input field
+          }  else if (e.key === "Escape") {
+            e.currentTarget.blur();
           }
         }}
       />
       <button
-        onClick={() => deleteTask(columnId, task.id)}
+        onClick={() => deleteTaskInEachTask(task.id)}
         style={{
           marginLeft: "10px",
           background: "red",
