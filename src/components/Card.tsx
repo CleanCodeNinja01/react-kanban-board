@@ -1,5 +1,3 @@
-import React from "react";
-
 function Card() {
   const handleCardClick = () => {
     console.log("Card clicked");
