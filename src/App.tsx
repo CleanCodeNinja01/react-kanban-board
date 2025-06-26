@@ -68,7 +68,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>📝 React + TypeScript Kanban Board</h1>
+      <h1>Kanban Board</h1>
       <div style={{ marginBottom: "20px" }}>
         <input
           type="text"
