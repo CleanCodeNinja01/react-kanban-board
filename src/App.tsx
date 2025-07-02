@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import type { Columns } from "./assets/App.types";
 import Column from "./Column";
+import Counter from "./components/Counter";
 
 const initialData: Columns = {
   backlog: {
@@ -26,6 +27,13 @@ const initialData: Columns = {
 };
 
 function App() {
+  // Counter
+  const [showCounter, setShowCounter] = useState(true);
+  const toggleCounter = () => {
+    setShowCounter((prev) => !prev);
+  };
+  // Counter
+
   const [columns, setColumns] = useState<Columns>(initialData);
   const [newTask, setNewTask] = useState("");
 
@@ -66,39 +74,47 @@ function App() {
     });
   };
 
-  return (
+  const showKanbanBoard = () => {
     <div className="App">
-      <h1>Kanban Board</h1>
-      <div style={{ marginBottom: "20px" }}>
-        <input
-          type="text"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          placeholder="Enter new task"
-          style={{ padding: "8px", marginRight: "10px" }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              addTask();
-            }
-          }}
-        />
-        <button onClick={addTask} style={{ padding: "8px" }}>
-          Add Task
-        </button>
-      </div>
-      <div
-        style={{ display: "flex", justifyContent: "center", height: "100%" }}
-      >
-        {Object.entries(columns).map(([columnId, column]) => (
-          <Column
-            columnId={columnId}
-            column={column}
-            editTaskInEachCol={editTask}
-            deleteTaskInEachCol={deleteTask}
-          />
-        ))}
-      </div>
+    <h1>Kanban Board</h1>
+    <div style={{ marginBottom: "20px" }}>
+      <input
+        type="text"
+        value={newTask}
+        onChange={(e) => setNewTask(e.target.value)}
+        placeholder="Enter new task"
+        style={{ padding: "8px", marginRight: "10px" }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            addTask();
+          }
+        }}
+      />
+      <button onClick={addTask} style={{ padding: "8px" }}>
+        Add Task
+      </button>
     </div>
+    <div
+      style={{ display: "flex", justifyContent: "center", height: "100%" }}
+    >
+      {Object.entries(columns).map(([columnId, column]) => (
+        <Column
+          columnId={columnId}
+          column={column}
+          editTaskInEachCol={editTask}
+          deleteTaskInEachCol={deleteTask}
+        />
+      ))}
+    </div>
+  </div>
+  }
+
+  
+  return (
+    <>
+      {showCounter && <Counter />}
+      <button onClick={()=>{toggleCounter()}}>Toggle Show Counter</button>
+    </>
   );
 }
 
