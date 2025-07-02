@@ -1,6 +1,6 @@
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import type { User } from 'firebase/auth';
-import { appAuth } from './firebaseConfig';
+import { appAuth } from './firebase.config';
 
 type LoginResult =
   | { success: true; user: User }

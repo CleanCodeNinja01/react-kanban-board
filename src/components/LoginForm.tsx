@@ -63,6 +63,32 @@ function LoginForm() {
     }
   };
 
+  const renderLoadingMessage = () => {
+    if (loading) {
+      return (
+        <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <div
+          style={{
+            border: "4px solid #f3f3f3",
+            borderTop: "4px solid #007BFF",
+            borderRadius: "50%",
+            width: "40px",
+            height: "40px",
+            animation: "spin 1s linear infinite",
+          }}
+        ></div>
+      </div>
+      );
+    }
+  }
+
   const renderForm = () => {
     return (
       <form
@@ -118,7 +144,8 @@ function LoginForm() {
           }}
           disabled={loading}
         >
-          {loading ? "Submitting..." : "Submit"}
+          Submit
+          {/* {loading ? "Submitting..." : "Submit"} */}
         </button>
       </form>
     );
@@ -134,7 +161,8 @@ function LoginForm() {
         height: "100vh",
       }}
     >
-      {!msg && renderForm()}
+      {loading && renderLoadingMessage()}
+      {!msg && !loading && renderForm()}
       {msg && isError && renderErrorMessage()}
       {msg && !isError && renderSuccessMessage()}
     </div>
